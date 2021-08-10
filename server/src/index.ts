@@ -13,7 +13,7 @@ const main = async () => {
   const app = express();
 
   const corsOptions: CorsOptions = {
-    origin: "https://studio.apollographql.com",
+    origin: ["https://studio.apollographql.com", "http://localhost:3000"],
     credentials: true,
   };
   app.use(cors(corsOptions));

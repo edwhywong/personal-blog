@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Stack,
@@ -12,10 +12,15 @@ import {
 } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import { useIsLogin } from "../hooks/useIsLogin";
+import { ACCESS_TOKEN_KEY } from "../constants";
+import { useRouter } from "next/dist/client/router";
 
 const NavBar = (props: FlexProps) => {
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const handleToggle = () => (isOpen ? onClose() : onOpen());
+  const isLogin = useIsLogin();
 
   return (
     <Flex
@@ -31,7 +36,7 @@ const NavBar = (props: FlexProps) => {
     >
       <Flex align="center" mr={5}>
         <Heading as="h2" size="lg" letterSpacing={"tighter"} fontWeight={700}>
-          Edward Wong
+          E Words
         </Heading>
       </Flex>
 
@@ -58,14 +63,27 @@ const NavBar = (props: FlexProps) => {
         display={{ base: isOpen ? "block" : "none", md: "block" }}
         mt={{ base: 4, md: 0 }}
       >
-        <NextLink href="/login">
+        {isLogin ? (
           <Button
             variant="outline"
             _hover={{ bg: "gray.50", borderColor: "gray.50" }}
+            onClick={() => {
+              localStorage.removeItem(ACCESS_TOKEN_KEY);
+              router.push("/");
+            }}
           >
-            Sign In
+            Sign Out
           </Button>
-        </NextLink>
+        ) : (
+          <NextLink href="/login">
+            <Button
+              variant="outline"
+              _hover={{ bg: "gray.50", borderColor: "gray.50" }}
+            >
+              Sign In
+            </Button>
+          </NextLink>
+        )}
       </Box>
     </Flex>
   );

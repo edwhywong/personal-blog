@@ -19,9 +19,19 @@ import { verify } from "jsonwebtoken";
 import { getConnection } from "typeorm";
 
 @ObjectType()
-class LoginResponse {
+class FieldError {
   @Field()
-  accessToken: string;
+  field: string;
+  @Field()
+  message: string;
+}
+@ObjectType()
+class LoginResponse {
+  @Field({ nullable: true })
+  accessToken?: string;
+
+  @Field(() => [FieldError], { nullable: true })
+  errors?: FieldError[];
 }
 
 @Resolver(User)
@@ -46,6 +56,7 @@ export class UserResolver {
 
   @Mutation(() => LoginResponse)
   async refreshToken(@Ctx() { req, res }: MyContext): Promise<LoginResponse> {
+    // console.log("req", req);
     const token = req.cookies.jid;
 
     if (!token) {
@@ -109,7 +120,12 @@ export class UserResolver {
   ): Promise<LoginResponse> {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      throw new Error("email password mismatch");
+      return {
+        errors: [
+          { field: "email", message: "email password mismatch" },
+          { field: "password", message: "email password mismatch" },
+        ],
+      };
     }
 
     const isValid = await bcrypt.compare(password, user.password);
@@ -120,7 +136,12 @@ export class UserResolver {
         accessToken: createAccessToken(user),
       };
     } else {
-      throw new Error("email password mismatch");
+      return {
+        errors: [
+          { field: "email", message: "email password mismatch" },
+          { field: "password", message: "email password mismatch" },
+        ],
+      };
     }
   }
 }
