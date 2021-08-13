@@ -1,24 +1,31 @@
-import React from "react";
-import { Box } from "@chakra-ui/react";
+import React, { ReactChild, ReactFragment, ReactPortal } from "react";
+import { Box, Container } from "@material-ui/core";
 
-export type WrapperVariant = "small" | "regular";
+export type WrapperVariant = "md" | "sm" | "xs" | "lg" | "xl";
 
 interface WrapperProps {
+  children: boolean | ReactChild | ReactFragment | ReactPortal;
   variant?: WrapperVariant;
+  center?: boolean;
+  navBarHeight?: number | null;
 }
 
-export const Wrapper: React.FC<WrapperProps> = ({
+const Wrapper: React.VFC<WrapperProps> = ({
   children,
-  variant = "regular",
+  variant = "md",
+  center,
+  navBarHeight = 0,
 }) => {
   return (
     <Box
-      mt={8}
-      mx="auto"
-      maxW={variant === "regular" ? "800px" : "400px"}
-      w="100%"
+      minHeight={`calc(100vh - ${navBarHeight}px)`}
+      display="flex"
+      flexDirection="column"
+      justifyContent={center ? "center" : undefined}
     >
-      {children}
+      <Container maxWidth={variant}>{children}</Container>
     </Box>
   );
 };
+
+export default Wrapper;

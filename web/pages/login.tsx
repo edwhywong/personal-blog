@@ -1,19 +1,20 @@
-import { Box, Button } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/dist/client/router";
 import React from "react";
-import { InputField } from "../components/InputField";
-import { Wrapper } from "../components/Wrapper";
 import { ACCESS_TOKEN_KEY } from "../constants";
 import { useLoginMutation } from "../generated/graphql";
 import { fieldErrorsToFormError } from "../utils";
+import { Box, TextField, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import { Wrapper } from "../components/Wrapper";
 
 const Login: React.VFC = ({}) => {
   const router = useRouter();
   const [login] = useLoginMutation();
 
   return (
-    <Wrapper variant="small">
+    <Wrapper variant="xs" center>
+      <Typography variant="h2">E Words</Typography>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values, actions) => {
@@ -32,26 +33,48 @@ const Login: React.VFC = ({}) => {
           }
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, values, handleChange, touched, errors }) => (
           <Form>
-            <Box mb={2}>
-              <InputField name="email" placeholder="email" label="Email" />
+            <Box marginY={2}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                id="email"
+                name="email"
+                label="Email"
+                placeholder="Email"
+                value={values.email}
+                onChange={handleChange}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+              />
             </Box>
-            <InputField
-              name="password"
-              placeholder="password"
-              label="Password"
-              type="password"
-            />
-            <Button
-              mt={4}
-              isFullWidth={true}
-              colorScheme="teal"
-              isLoading={isSubmitting}
-              type="submit"
-            >
-              Login
-            </Button>
+            <Box marginY={2}>
+              <TextField
+                fullWidth
+                variant="outlined"
+                id="password"
+                name="password"
+                label="Password"
+                placeholder="Password"
+                type="password"
+                value={values.email}
+                onChange={handleChange}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+              />
+            </Box>
+            <Box marginY={2}>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Login
+              </Button>
+            </Box>
           </Form>
         )}
       </Formik>
