@@ -6,7 +6,7 @@ import { useLoginMutation } from "../generated/graphql";
 import { fieldErrorsToFormError } from "../utils";
 import { Box, TextField, Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
-import { Wrapper } from "../components/Wrapper";
+import Wrapper from "../components/Wrapper";
 
 const Login: React.VFC = ({}) => {
   const router = useRouter();
@@ -14,7 +14,7 @@ const Login: React.VFC = ({}) => {
 
   return (
     <Wrapper variant="xs" center>
-      <Typography variant="h2">E Words</Typography>
+      <Typography variant="h3">E Words</Typography>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values, actions) => {

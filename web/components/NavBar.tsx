@@ -8,12 +8,12 @@ import {
   Button,
   Link,
   List,
-  ListItem,
-  makeStyles,
   SwipeableDrawer,
   Typography,
   useMediaQuery,
+  styled,
   useTheme,
+  ButtonBase,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
@@ -22,19 +22,25 @@ const navItems = [
     label: "About",
     href: "/about",
   },
+  {
+    label: "Contact",
+    href: "/contact",
+  },
 ];
 
-const useStyle = makeStyles((theme) => ({
-  drawer: {
-    width: "160px",
-  },
+const PREFIX = "Drawer";
+const classes = {
+  root: `${PREFIX}-root`,
+};
+
+const DrawerContainer = styled("div")(() => ({
+  width: "160px",
 }));
 
 const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
   _props,
   ref
 ) {
-  const classes = useStyle();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const router = useRouter();
@@ -48,25 +54,31 @@ const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
       <Box
         display="flex"
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent="space-around"
         flexWrap="wrap"
         paddingX={4}
         paddingY={2}
         borderBottom="1px solid #e0e0e0"
       >
-        <Typography variant="h3">E Words</Typography>
+        {isMobile && (
+          <Box onClick={handleToggle}>
+            <MenuIcon color="primary" />
+          </Box>
+        )}
+        <NextLink href="/">
+          <Box flex={isMobile ? 1 : undefined} textAlign="center">
+            <Typography variant="h3">
+              <Link href="/">E Words</Link>
+            </Typography>
+          </Box>
+        </NextLink>
         {!isMobile && (
           <Box>
             {navItems.map((item) => (
               <NextLink key={item.label} href={item.href}>
-                <Link>{item.label}</Link>
+                <Button color="primary">{item.label}</Button>
               </NextLink>
             ))}
-          </Box>
-        )}
-        {isMobile && (
-          <Box onClick={handleToggle}>
-            <MenuIcon color="primary" />
           </Box>
         )}
         <SwipeableDrawer
@@ -75,8 +87,8 @@ const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
           onClose={handleToggle}
           onOpen={handleToggle}
         >
-          <div
-            className={classes.drawer}
+          <DrawerContainer
+            className={classes.root}
             role="presentation"
             onClick={handleToggle}
             onKeyDown={handleToggle}
@@ -90,7 +102,7 @@ const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
                 </NextLink>
               ))}
             </List>
-          </div>
+          </DrawerContainer>
         </SwipeableDrawer>
       </Box>
     </div>
