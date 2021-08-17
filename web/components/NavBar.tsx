@@ -14,8 +14,10 @@ import {
   styled,
   useTheme,
   ButtonBase,
+  Drawer,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import { BoxProps } from "@material-ui/core";
 
 const navItems = [
   {
@@ -37,8 +39,8 @@ const DrawerContainer = styled("div")(() => ({
   width: "160px",
 }));
 
-const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
-  _props,
+const NavBar = forwardRef<HTMLDivElement | null, BoxProps>(function NavBar(
+  props,
   ref
 ) {
   const theme = useTheme();
@@ -59,6 +61,7 @@ const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
         paddingX={4}
         paddingY={2}
         borderBottom="1px solid #e0e0e0"
+        {...props}
       >
         {isMobile && (
           <Box onClick={handleToggle}>
@@ -81,12 +84,7 @@ const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
             ))}
           </Box>
         )}
-        <SwipeableDrawer
-          anchor="left"
-          open={isOpen}
-          onClose={handleToggle}
-          onOpen={handleToggle}
-        >
+        <Drawer anchor="left" open={isOpen} onClose={handleToggle}>
           <DrawerContainer
             className={classes.root}
             role="presentation"
@@ -103,7 +101,7 @@ const NavBar = forwardRef<HTMLDivElement | null, {}>(function NavBar(
               ))}
             </List>
           </DrawerContainer>
-        </SwipeableDrawer>
+        </Drawer>
       </Box>
     </div>
   );

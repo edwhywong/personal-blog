@@ -1,9 +1,10 @@
 import React, { ReactChild, ReactFragment, ReactPortal } from "react";
 import { Box, Container } from "@material-ui/core";
+import { BoxProps } from "@material-ui/core";
 
 export type WrapperVariant = "md" | "sm" | "xs" | "lg" | "xl";
 
-interface WrapperProps {
+interface WrapperProps extends BoxProps {
   children: boolean | ReactChild | ReactFragment | ReactPortal;
   variant?: WrapperVariant;
   center?: boolean;
@@ -15,6 +16,7 @@ const Wrapper: React.VFC<WrapperProps> = ({
   variant = "md",
   center,
   navBarHeight = 0,
+  ...props
 }) => {
   return (
     <Box
@@ -22,6 +24,7 @@ const Wrapper: React.VFC<WrapperProps> = ({
       display="flex"
       flexDirection="column"
       justifyContent={center ? "center" : undefined}
+      {...props}
     >
       <Container maxWidth={variant}>{children}</Container>
     </Box>

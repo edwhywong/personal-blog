@@ -8,7 +8,7 @@ export const createAccessToken = (user: User) => {
     },
     process.env.ACCESS_TOKEN_SECRET as string,
     {
-      expiresIn: "1m",
+      expiresIn: "60m",
     }
   );
 };

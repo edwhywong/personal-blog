@@ -6,29 +6,40 @@ import {
   BaseEntity,
   CreateDateColumn,
   UpdateDateColumn,
-  OneToMany,
+  ManyToOne,
 } from "typeorm";
-import { Post } from "./Post";
+import { User } from "./User";
 
 @ObjectType()
 @Entity()
-export class User extends BaseEntity {
+export class Post extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
 
   @Field()
   @Column()
-  email: string;
+  title: string;
 
+  @Field()
+  @Column({ nullable: true, length: 150 })
+  summary: string;
+
+  @Field()
   @Column()
-  password: string;
+  content: string;
 
-  @Column("int", { default: 0 })
-  tokenVersion: number;
+  @Field()
+  @Column()
+  authorId: number;
 
-  @OneToMany(() => Post, (post) => post.author)
-  posts: Post[];
+  @Field(() => User)
+  @ManyToOne(() => User, (user) => user.posts)
+  author: User;
+
+  @Field(() => String)
+  @Column()
+  publishedAt: Date;
 
   @Field(() => String)
   @CreateDateColumn()

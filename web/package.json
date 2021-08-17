@@ -17,6 +17,8 @@
     "@emotion/styled": "^11.3.0",
     "@material-ui/core": "^5.0.0-beta.4",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^5.0.0-alpha.43",
+    "date-fns": "^2.23.0",
     "formik": "^2.2.9",
     "framer-motion": "^4",
     "graphql": "^15.5.1",
