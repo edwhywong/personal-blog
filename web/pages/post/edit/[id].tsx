@@ -13,15 +13,11 @@ import {
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { useLoginUser } from "../../../hooks/useLoginUser";
+import { usePostQueryWithRouter } from "../../../hooks/usePostQueryWithRouter";
 
 const EditPost: React.VFC = () => {
   const router = useRouter();
-  const intId =
-    typeof router.query.id === "string" ? parseInt(router.query.id) : -1;
-  const { data, loading } = usePostQuery({
-    variables: { postId: intId },
-    skip: intId === -1,
-  });
+  const { data, loading } = usePostQueryWithRouter(router);
   const [error, setError] = useState<string | undefined>(undefined);
   const [postInput, setPostInput] = useState<PostInput>({
     title: "",
@@ -35,12 +31,12 @@ const EditPost: React.VFC = () => {
 
   const [updatePost] = useUpdatePostMutation();
 
-  const handleCreatePost: React.MouseEventHandler<HTMLButtonElement> = async (
+  const handleUpdatePost: React.MouseEventHandler<HTMLButtonElement> = async (
     _e
   ) => {
     const response = await updatePost({
       variables: {
-        updatePostPostId: intId,
+        updatePostPostId: data!.post!.id,
         updatePostInput: {
           title: postInput.title,
           content: postInput.content,
@@ -117,7 +113,7 @@ const EditPost: React.VFC = () => {
           fullWidth
           variant="contained"
           color="primary"
-          onClick={handleCreatePost}
+          onClick={handleUpdatePost}
         >
           Update Post
         </Button>

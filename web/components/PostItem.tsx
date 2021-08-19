@@ -19,7 +19,7 @@ const PostItem: React.VFC<PostItem> = ({ post }) => {
       </Typography>
       <Typography variant="body2">{post.summary}</Typography>
       <Typography variant="caption">
-        {new Date(parseInt(post.publishedAt)).toDateString().slice(4)}
+        {new Date(post.publishedAt).toDateString().slice(4)}
       </Typography>
     </Box>
   );

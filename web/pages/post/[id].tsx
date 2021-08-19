@@ -7,15 +7,11 @@ import Editor from "rich-markdown-editor";
 import { Delete, Edit } from "@material-ui/icons";
 import NextLink from "next/link";
 import { useLoginUser } from "../../hooks/useLoginUser";
+import { usePostQueryWithRouter } from "../../hooks/usePostQueryWithRouter";
 
 const Post: React.VFC = () => {
   const router = useRouter();
-  const intId =
-    typeof router.query.id === "string" ? parseInt(router.query.id) : -1;
-  const { data, error, loading } = usePostQuery({
-    variables: { postId: intId },
-    skip: intId === -1,
-  });
+  const { data, error, loading } = usePostQueryWithRouter(router);
 
   const loggedInUserId = useLoginUser();
 
@@ -23,7 +19,7 @@ const Post: React.VFC = () => {
 
   const handleDelete = async () => {
     const response = await deletePost({
-      variables: { deletePostPostId: intId },
+      variables: { deletePostPostId: data!.post!.id },
     });
     if (!response.errors) {
       router.replace("/");
