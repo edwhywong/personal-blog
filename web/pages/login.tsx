@@ -58,10 +58,10 @@ const Login: React.VFC = ({}) => {
                 label="Password"
                 placeholder="Password"
                 type="password"
-                value={values.email}
+                value={values.password}
                 onChange={handleChange}
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
+                error={touched.password && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
               />
             </Box>
             <Box marginY={2}>

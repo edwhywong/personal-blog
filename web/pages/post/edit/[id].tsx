@@ -12,6 +12,7 @@ import {
 } from "../../../generated/graphql";
 import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
+import { useLoginUser } from "../../../hooks/useLoginUser";
 
 const EditPost: React.VFC = () => {
   const router = useRouter();
@@ -30,13 +31,22 @@ const EditPost: React.VFC = () => {
   });
   const [isLoadComplete, setIsLoadComplete] = useState(false);
 
+  const loggedInUserId = useLoginUser();
+
   const [updatePost] = useUpdatePostMutation();
 
   const handleCreatePost: React.MouseEventHandler<HTMLButtonElement> = async (
     _e
   ) => {
     const response = await updatePost({
-      variables: { updatePostPostId: intId, updatePostInput: postInput },
+      variables: {
+        updatePostPostId: intId,
+        updatePostInput: {
+          title: postInput.title,
+          content: postInput.content,
+          publishedAt: postInput.publishedAt,
+        },
+      },
     });
     const postId = response.data?.updatePost?.id;
     if (postId) {
@@ -58,6 +68,10 @@ const EditPost: React.VFC = () => {
 
   if (loading || !isLoadComplete) {
     return <Layout>loading...</Layout>;
+  }
+
+  if (data?.post?.authorId !== loggedInUserId) {
+    return <Layout>Unauthorized</Layout>;
   }
 
   return (

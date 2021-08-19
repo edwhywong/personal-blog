@@ -1,7 +1,5 @@
 import React, { forwardRef, useEffect, useState } from "react";
 import NextLink from "next/link";
-import { useIsLogin } from "../hooks/useIsLogin";
-import { ACCESS_TOKEN_KEY } from "../constants";
 import { useRouter } from "next/dist/client/router";
 import {
   Box,

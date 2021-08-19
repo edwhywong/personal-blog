@@ -7,6 +7,7 @@ import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import DateTimePicker from "@material-ui/lab/DateTimePicker";
 import { PostInput, useCreatePostMutation } from "../generated/graphql";
 import { useRouter } from "next/dist/client/router";
+import { useLoginUser } from "../hooks/useLoginUser";
 
 const CreatePost: React.VFC = () => {
   const [error, setError] = useState<string | undefined>(undefined);
@@ -18,6 +19,8 @@ const CreatePost: React.VFC = () => {
   });
   const router = useRouter();
   const [createPost] = useCreatePostMutation();
+
+  const loggedInUserId = useLoginUser();
 
   const handleCreatePost: React.MouseEventHandler<HTMLButtonElement> = async (
     _e
@@ -35,6 +38,10 @@ const CreatePost: React.VFC = () => {
       setError(error);
     }
   };
+
+  if (!!!loggedInUserId) {
+    return <Layout>Unauthorized</Layout>;
+  }
 
   return (
     <Layout>

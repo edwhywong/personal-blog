@@ -103,6 +103,7 @@ export class PostResolver {
           .update(Post)
           .set({
             ...input,
+            // publishedAt: new Date(input.publishedAt),
           })
           .where('id = :id and "authorId" = :authorId', {
             id: postId,

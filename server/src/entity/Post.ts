@@ -21,7 +21,7 @@ export class Post extends BaseEntity {
   @Column()
   title: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ nullable: true, length: 150 })
   summary: string;
 
@@ -37,15 +37,15 @@ export class Post extends BaseEntity {
   @ManyToOne(() => User, (user) => user.posts)
   author: User;
 
-  @Field(() => String)
+  @Field()
   @Column()
   publishedAt: Date;
 
-  @Field(() => String)
+  @Field()
   @CreateDateColumn()
   createdAt: Date;
 
-  @Field(() => String)
+  @Field()
   @UpdateDateColumn()
   updatedAt: Date;
 }
