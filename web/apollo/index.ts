@@ -18,7 +18,7 @@ const NON_AUTH_OPERATION_MAP: Record<string, boolean> = {
 let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: process.env.API_END_POINT!,
   credentials: "include",
 });
 

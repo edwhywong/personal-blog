@@ -13,7 +13,7 @@ const main = async () => {
   const app = express();
 
   const corsOptions: CorsOptions = {
-    origin: ["https://studio.apollographql.com", "http://localhost:3000"],
+    origin: process.env.ALLOW_ORGINS!.split("|"),
     credentials: true,
   };
   app.use(cors(corsOptions));
@@ -34,7 +34,7 @@ const main = async () => {
     cors: false,
   });
 
-  app.listen(4000, () => {
+  app.listen(parseInt(process.env.PORT!), () => {
     console.log("app started");
   });
 };
