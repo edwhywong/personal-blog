@@ -67,7 +67,9 @@ const EditPost: React.VFC = () => {
   }
 
   if (data?.post?.authorId !== loggedInUserId) {
-    return <Layout>Unauthorized</Layout>;
+    typeof window !== "undefined" &&
+      router.replace(`/login?to=post/edit/${data?.post?.id}`);
+    return null;
   }
 
   return (

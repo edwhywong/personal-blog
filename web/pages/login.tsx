@@ -29,7 +29,11 @@ const Login: React.VFC = ({}) => {
               ACCESS_TOKEN_KEY,
               response.data.login.accessToken
             );
-            router.push("/");
+            if (typeof router.query.to === "string") {
+              router.push(router.query.to);
+            } else {
+              router.push("/");
+            }
           }
         }}
       >

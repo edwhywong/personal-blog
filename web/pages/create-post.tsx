@@ -40,7 +40,8 @@ const CreatePost: React.VFC = () => {
   };
 
   if (!!!loggedInUserId) {
-    return <Layout>Unauthorized</Layout>;
+    typeof window !== "undefined" && router.replace("/login?to=create-post");
+    return null;
   }
 
   return (
