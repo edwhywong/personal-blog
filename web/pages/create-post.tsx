@@ -8,6 +8,7 @@ import DateTimePicker from "@material-ui/lab/DateTimePicker";
 import { PostInput, useCreatePostMutation } from "../generated/graphql";
 import { useRouter } from "next/dist/client/router";
 import { useLoginUser } from "../hooks/useLoginUser";
+import { LoadingButton } from "@material-ui/lab";
 
 const CreatePost: React.VFC = () => {
   const [error, setError] = useState<string | undefined>(undefined);
@@ -18,7 +19,7 @@ const CreatePost: React.VFC = () => {
     publishedAt: new Date(),
   });
   const router = useRouter();
-  const [createPost] = useCreatePostMutation();
+  const [createPost, { loading }] = useCreatePostMutation();
 
   const loggedInUserId = useLoginUser();
 
@@ -81,14 +82,15 @@ const CreatePost: React.VFC = () => {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <Button
+        <LoadingButton
           fullWidth
           variant="contained"
           color="primary"
           onClick={handleCreatePost}
+          loading={loading}
         >
           Create Post
-        </Button>
+        </LoadingButton>
         {!!error && <Alert severity="error"></Alert>}
       </Stack>
     </Layout>

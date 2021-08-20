@@ -14,6 +14,7 @@ import { useRouter } from "next/dist/client/router";
 import { useEffect } from "react";
 import { useLoginUser } from "../../../hooks/useLoginUser";
 import { usePostQueryWithRouter } from "../../../hooks/usePostQueryWithRouter";
+import { LoadingButton } from "@material-ui/lab";
 
 const EditPost: React.VFC = () => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const EditPost: React.VFC = () => {
 
   const loggedInUserId = useLoginUser();
 
-  const [updatePost] = useUpdatePostMutation();
+  const [updatePost, { loading: isUpdatingPost }] = useUpdatePostMutation();
 
   const handleUpdatePost: React.MouseEventHandler<HTMLButtonElement> = async (
     _e
@@ -101,7 +102,7 @@ const EditPost: React.VFC = () => {
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateTimePicker
             label="Publish Date"
-            value={new Date(parseInt(postInput.publishedAt))}
+            value={new Date(postInput.publishedAt)}
             onChange={(newValue) => {
               setPostInput((input) => ({
                 ...input,
@@ -111,14 +112,15 @@ const EditPost: React.VFC = () => {
             renderInput={(params) => <TextField {...params} />}
           />
         </LocalizationProvider>
-        <Button
+        <LoadingButton
           fullWidth
           variant="contained"
           color="primary"
           onClick={handleUpdatePost}
+          loading={isUpdatingPost}
         >
           Update Post
-        </Button>
+        </LoadingButton>
         {!!error && <Alert severity="error"></Alert>}
       </Stack>
     </Layout>

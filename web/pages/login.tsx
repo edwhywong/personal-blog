@@ -7,10 +7,11 @@ import { fieldErrorsToFormError } from "../utils";
 import { Box, TextField, Typography } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import Wrapper from "../components/Wrapper";
+import { LoadingButton } from "@material-ui/lab";
 
 const Login: React.VFC = ({}) => {
   const router = useRouter();
-  const [login] = useLoginMutation();
+  const [login, { loading }] = useLoginMutation();
 
   return (
     <Wrapper variant="xs" center>
@@ -69,15 +70,15 @@ const Login: React.VFC = ({}) => {
               />
             </Box>
             <Box marginY={2}>
-              <Button
+              <LoadingButton
                 fullWidth
                 variant="contained"
                 color="primary"
                 type="submit"
-                disabled={isSubmitting}
+                loading={loading}
               >
                 Login
-              </Button>
+              </LoadingButton>
             </Box>
           </Form>
         )}
