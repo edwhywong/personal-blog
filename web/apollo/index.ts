@@ -8,6 +8,7 @@ import {
 import { setContext } from "@apollo/client/link/context";
 import { ACCESS_TOKEN_KEY } from "../constants";
 import jwtDecode from "jwt-decode";
+import Router from "next/router";
 
 const NON_AUTH_OPERATION_MAP: Record<string, boolean> = {
   Login: true,
@@ -22,21 +23,15 @@ const httpLink = createHttpLink({
 });
 
 const refreshAuthToken = async () => {
-  return apolloClient
-    .mutate({
-      mutation: gql`
-        mutation RefreshToken {
-          refreshToken {
-            accessToken
-          }
+  return apolloClient.mutate({
+    mutation: gql`
+      mutation RefreshToken {
+        refreshToken {
+          accessToken
         }
-      `,
-    })
-    .then((res) => {
-      const newAccessToken = res.data?.refreshToken?.accessToken;
-      localStorage.setItem(ACCESS_TOKEN_KEY, newAccessToken);
-      return newAccessToken;
-    });
+      }
+    `,
+  });
 };
 
 const authLink = setContext(async (req, { headers }) => {
@@ -45,9 +40,17 @@ const authLink = setContext(async (req, { headers }) => {
   let token = localStorage.getItem(ACCESS_TOKEN_KEY);
   if (token && new Date().getTime() / 1000 > (jwtDecode(token) as any).exp) {
     try {
-      token = await refreshAuthToken();
+      const response = await refreshAuthToken();
+      let newAcessToken = response.data?.refreshToken?.accessToken;
+      if (newAcessToken) {
+        localStorage.setItem(ACCESS_TOKEN_KEY, newAcessToken);
+        token = newAcessToken;
+      } else {
+        throw new Error("Refresh Token Failed");
+      }
     } catch (e) {
-      console.log("refresh token error", e);
+      localStorage.removeItem(ACCESS_TOKEN_KEY);
+      Router.push("/login");
     }
   }
   // return the headers to the context so httpLink can read them
