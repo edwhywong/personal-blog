@@ -12,7 +12,7 @@ import {
   InputType,
 } from "type-graphql";
 import { Post } from "../entity/Post";
-import { MyContext } from "src/types/MyContext";
+import { MyContext } from "../types/MyContext";
 import { getConnection } from "typeorm";
 
 @InputType()

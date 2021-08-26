@@ -2,10 +2,11 @@
    "name": "server",
    "version": "0.0.1",
    "description": "Awesome project developed with TypeORM.",
+   "main": "index.js",
    "devDependencies": {
       "@types/cookie-parser": "^1.4.2",
       "@types/express": "^4.17.13",
-      "@types/node": "^16.4.10",
+      "@types/node": "^14.17.5",
       "@types/bcrypt": "^5.0.0",
       "@types/jsonwebtoken": "^8.5.4",
       "nodemon": "^2.0.12",
@@ -27,6 +28,7 @@
       "typeorm": "0.2.36"
    },
    "scripts": {
-      "start": "nodemon --exec ts-node src/index.ts"
+      "build": "tsc --project ./",
+      "dev": "nodemon --exec ts-node src/index.ts"
    }
 }

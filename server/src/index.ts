@@ -8,7 +8,8 @@ import cors, { CorsOptions } from "cors";
 import cookieParser from "cookie-parser";
 
 const main = async () => {
-  await createConnection();
+  const conn = await createConnection();
+  conn.runMigrations();
 
   const app = express();
 
@@ -17,6 +18,7 @@ const main = async () => {
     credentials: true,
   };
   app.use(cors(corsOptions));
+  app.set("proxy", 1);
   app.use(cookieParser());
 
   const apolloServer = new ApolloServer({
