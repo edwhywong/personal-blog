@@ -17,8 +17,9 @@ const main = async () => {
     origin: process.env.ALLOW_ORGINS!.split("|"),
     credentials: true,
   };
+  console.log("corsOptions", corsOptions);
   app.use(cors(corsOptions));
-  app.set("proxy", 1);
+  app.set("trust proxy", 1);
   app.use(cookieParser());
 
   const apolloServer = new ApolloServer({
