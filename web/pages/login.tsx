@@ -15,7 +15,9 @@ const Login: React.VFC = ({}) => {
 
   return (
     <Wrapper variant="xs" center>
-      <Typography variant="h3">E Words</Typography>
+      <Typography variant="h3" fontWeight={200}>
+        E Words
+      </Typography>
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={async (values, actions) => {
