@@ -14,3 +14,109 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.avatar {
+  border-radius: 50%;
+}
+
+.text-fall {
+  -webkit-animation: text-fall 3s 1s ease-in-out both;
+  -moz-animation: text-fall 3s 1s ease-in-out both;
+  -ms-animation: text-fall 3s 1s ease-in-out both;
+  -o-animation: text-fall 3s 1s ease-in-out both;
+  animation: text-fall 3s 1s ease-in-out both;
+
+  -webkit-transform-origin: 0 50%;
+  -moz-transform-origin: 0 50%;
+  -ms-transform-origin: 0 50%;
+  -o-transform-origin: 0 50%;
+  transform-origin: 0 50%;
+}
+
+@-webkit-keyframes text-fall {
+  0% {
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+
+  15% {
+    -webkit-transform: rotate3d(0, 0, 1, 130deg);
+    transform: rotate3d(0, 0, 1, 130deg);
+  }
+
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 80deg);
+    transform: rotate3d(0, 0, 1, 80deg);
+  }
+
+  30% {
+    -webkit-transform: rotate3d(0, 0, 1, 115deg);
+    transform: rotate3d(0, 0, 1, 115deg);
+  }
+
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, 85deg);
+    transform: rotate3d(0, 0, 1, 85deg);
+  }
+
+  50% {
+    -webkit-transform: rotate3d(0, 0, 1, 107deg);
+    transform: rotate3d(0, 0, 1, 107deg);
+  }
+
+  80% {
+    -webkit-transform: rotateZ(102.5deg);
+    transform: rotateZ(102.5deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(-360deg);
+    transform: rotateZ(-360deg);
+  }
+}
+
+@keyframes text-fall {
+  0% {
+    -webkit-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-animation-timing-function: ease-in-out;
+    animation-timing-function: ease-in-out;
+  }
+
+  15% {
+    -webkit-transform: rotate3d(0, 0, 1, 130deg);
+    transform: rotate3d(0, 0, 1, 130deg);
+  }
+
+  20% {
+    -webkit-transform: rotate3d(0, 0, 1, 80deg);
+    transform: rotate3d(0, 0, 1, 80deg);
+  }
+
+  30% {
+    -webkit-transform: rotate3d(0, 0, 1, 115deg);
+    transform: rotate3d(0, 0, 1, 115deg);
+  }
+
+  40% {
+    -webkit-transform: rotate3d(0, 0, 1, 85deg);
+    transform: rotate3d(0, 0, 1, 85deg);
+  }
+
+  50% {
+    -webkit-transform: rotate3d(0, 0, 1, 107deg);
+    transform: rotate3d(0, 0, 1, 107deg);
+  }
+
+  80% {
+    -webkit-transform: rotateZ(102.5deg);
+    transform: rotateZ(102.5deg);
+  }
+
+  100% {
+    -webkit-transform: rotateZ(-360deg);
+    transform: rotateZ(-360deg);
+  }
+}

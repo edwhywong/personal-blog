@@ -9,6 +9,7 @@ interface WrapperProps extends BoxProps {
   variant?: WrapperVariant;
   center?: boolean;
   navBarHeight?: number | null;
+  footerHeight?: number | null;
 }
 
 const Wrapper: React.VFC<WrapperProps> = ({
@@ -16,11 +17,12 @@ const Wrapper: React.VFC<WrapperProps> = ({
   variant = "md",
   center,
   navBarHeight = 0,
+  footerHeight = 0,
   ...props
 }) => {
   return (
     <Box
-      minHeight={`calc(100vh - ${navBarHeight}px)`}
+      minHeight={`calc(100vh - ${navBarHeight}px - ${footerHeight}px)`}
       display="flex"
       flexDirection="column"
       justifyContent={center ? "center" : undefined}

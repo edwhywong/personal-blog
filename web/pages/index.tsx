@@ -1,6 +1,6 @@
 import {
   Button,
-  Skeleton,
+  Skeleton as MuiSkeleton,
   Stack,
   Box,
   Typography,
@@ -11,6 +11,10 @@ import Layout from "../components/Layout";
 import PostItem from "../components/PostItem";
 import { usePostsQuery } from "../generated/graphql";
 
+const Skeleton = () => {
+  return <MuiSkeleton sx={{ height: 75 }} />;
+};
+
 export default function Home() {
   const { data, loading, fetchMore, variables } = usePostsQuery({
     variables: { postsLimit: 20, postsCursor: null },
@@ -20,7 +24,7 @@ export default function Home() {
     <Layout variant="sm">
       {!data && loading ? (
         <>
-          <Skeleton /> <Skeleton /> <Skeleton />
+          <Skeleton /> <Skeleton /> <Skeleton /> <Skeleton /> <Skeleton />
         </>
       ) : (
         <Box>
