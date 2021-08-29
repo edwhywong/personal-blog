@@ -22,7 +22,7 @@ const EditPost: React.VFC = () => {
   const [error, setError] = useState<string | undefined>(undefined);
   const [postInput, setPostInput] = useState<PostInput>({
     title: "",
-    summary: null,
+    summary: "",
     content: "",
     publishedAt: new Date(),
   });
@@ -41,6 +41,7 @@ const EditPost: React.VFC = () => {
         updatePostInput: {
           title: postInput.title,
           content: postInput.content,
+          summary: postInput.summary,
           publishedAt: postInput.publishedAt,
         },
       },
@@ -87,6 +88,20 @@ const EditPost: React.VFC = () => {
             setPostInput((input) => ({
               ...input,
               title: e.target.value,
+            }));
+          }}
+        />
+        <TextField
+          fullWidth
+          id="summary"
+          name="summary"
+          label="Summary"
+          placeholder="Summary"
+          value={postInput.summary}
+          onChange={(e) => {
+            setPostInput((input) => ({
+              ...input,
+              summary: e.target.value,
             }));
           }}
         />

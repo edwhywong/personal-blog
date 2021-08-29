@@ -17,10 +17,10 @@ const PostItem: React.VFC<PostItem> = ({ post }) => {
           </Link>
         </NextLink>
       </Typography>
-      <Typography variant="body2">{post.summary}</Typography>
       <Typography variant="caption">
         {new Date(post.publishedAt).toDateString().slice(4)}
       </Typography>
+      <Typography variant="body2">{post.summary}</Typography>
     </Box>
   );
 };

@@ -14,7 +14,7 @@ const CreatePost: React.VFC = () => {
   const [error, setError] = useState<string | undefined>(undefined);
   const [postInput, setPostInput] = useState<PostInput>({
     title: "",
-    summary: null,
+    summary: "",
     content: "",
     publishedAt: new Date(),
   });
@@ -58,6 +58,19 @@ const CreatePost: React.VFC = () => {
             setPostInput((input) => ({
               ...input,
               title: e.target.value,
+            }));
+          }}
+        />
+        <TextField
+          fullWidth
+          id="summary"
+          name="summary"
+          label="Summary"
+          placeholder="Summary"
+          onChange={(e) => {
+            setPostInput((input) => ({
+              ...input,
+              summary: e.target.value,
             }));
           }}
         />
