@@ -1,6 +1,6 @@
 import { Box, IconButton, Skeleton, Typography } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
-import React from "react";
+import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
 import { useDeletePostMutation, usePostQuery } from "../../generated/graphql";
 import Editor from "rich-markdown-editor";
@@ -26,6 +26,14 @@ const Post: React.VFC = () => {
     }
   };
 
+  useEffect(() => {
+    if (window.location.hash && data?.post) {
+      setTimeout(() => {
+        window.location.href = window.location.hash;
+      }, 0);
+    }
+  }, [data?.post]);
+
   if (loading) {
     return (
       <Layout>
@@ -43,6 +51,8 @@ const Post: React.VFC = () => {
   if (!data?.post) {
     return <Layout>could not find post</Layout>;
   }
+
+  console.log("render");
 
   return (
     <Layout>
