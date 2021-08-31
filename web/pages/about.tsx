@@ -100,7 +100,6 @@ const About = () => {
               </Fade>
               <Fade in={true} timeout={3000}>
                 <Typography variant="body2" mt={2}>
-                  <br />
                   Here, you will find my thoughts about software development.
                 </Typography>
               </Fade>

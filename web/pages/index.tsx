@@ -12,7 +12,13 @@ import PostItem from "../components/PostItem";
 import { usePostsQuery } from "../generated/graphql";
 
 const Skeleton = () => {
-  return <MuiSkeleton sx={{ height: 75 }} />;
+  return (
+    <div>
+      <MuiSkeleton sx={{ height: 25 }} />
+      <MuiSkeleton sx={{ height: 15, width: 100 }} />
+      <MuiSkeleton sx={{ height: 25, width: "80%" }} />
+    </div>
+  );
 };
 
 export default function Home() {
@@ -22,19 +28,19 @@ export default function Home() {
 
   return (
     <Layout variant="sm">
+      <Box mb={2}>
+        <Typography variant="h5" mb={1} color="primary">
+          Blog Posts
+        </Typography>
+        <Divider light />
+      </Box>
       {!data && loading ? (
-        <>
+        <Stack spacing={2}>
           <Skeleton /> <Skeleton /> <Skeleton /> <Skeleton /> <Skeleton />
-        </>
+        </Stack>
       ) : (
         <Box>
           <Stack spacing={2}>
-            <Box>
-              <Typography variant="h5" mb={1} color="primary">
-                Blog Posts
-              </Typography>
-              <Divider light />
-            </Box>
             {data?.posts.posts.map((p) => (
               <PostItem key={p.id} post={p} />
             ))}

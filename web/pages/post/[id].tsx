@@ -37,9 +37,11 @@ const Post: React.VFC = () => {
   if (loading) {
     return (
       <Layout>
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
+        <Skeleton sx={{ height: 50 }} />
+        <Skeleton sx={{ height: 50 }} />
+        <Skeleton sx={{ height: 50 }} />
+        <Skeleton sx={{ height: 50 }} />
+        <Skeleton sx={{ height: 50 }} />
       </Layout>
     );
   }

@@ -37,10 +37,14 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <React.Fragment>
       <Head>
-        <title>E Words</title>
+        <title>E Words - A blog by Edward Wong</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+        <meta
+          name="description"
+          content="Personal blog by Edward Wong, software Engineer from Hong Kong to Toronto."
         />
       </Head>
       <ApolloProvider client={apolloClient}>
