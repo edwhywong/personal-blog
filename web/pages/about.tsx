@@ -90,11 +90,7 @@ const About = () => {
                 </Typography>
               </Fade>
               <Fade in={true} timeout={2000}>
-                <Typography
-                  variant={isMobile ? "h3" : "h1"}
-                  color="secondary"
-                  className="text-fall"
-                >
+                <Typography variant={isMobile ? "h3" : "h1"} color="secondary">
                   Edward Wong.
                 </Typography>
               </Fade>
