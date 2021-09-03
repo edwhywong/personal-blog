@@ -4,12 +4,13 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/dist/client/router";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
-import { apolloClient } from "../apollo";
+import { useApollo } from "../apollo";
 import LoadingBackDrop from "../components/Loading";
 import "../styles/globals.css";
 import theme from "../theme";
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const apolloClient = useApollo(pageProps);
   const router = useRouter();
   const [pageLoading, setPageLoading] = useState(false);
 
