@@ -1,4 +1,4 @@
-import { Box, IconButton, Skeleton, Typography } from "@material-ui/core";
+import { Box, IconButton, Typography } from "@material-ui/core";
 import { useRouter } from "next/dist/client/router";
 import React, { useEffect } from "react";
 import Layout from "../../components/Layout";
@@ -15,6 +15,7 @@ import NextLink from "next/link";
 import { useLoginUser } from "../../hooks/useLoginUser";
 import { addApolloState, initializeApollo } from "../../apollo";
 import { NextSeo } from "next-seo";
+import { constructPostId, getPostIntId } from "../../utils/postUtils";
 
 interface PostProps {
   data: PostQuery | undefined;
@@ -88,10 +89,10 @@ export async function getStaticPaths() {
   });
 
   const paths = data?.posts.posts.map((post) => ({
-    params: { id: post.id.toString() },
+    params: { id: constructPostId(post) },
   }));
 
-  return { paths, fallback: true };
+  return { paths, fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
@@ -99,7 +100,7 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
 
   const { data } = await apolloClient.query({
     query: PostDocument,
-    variables: { postId: parseInt(params.id) },
+    variables: { postId: getPostIntId(params.id) },
   });
 
   return addApolloState(apolloClient, {
