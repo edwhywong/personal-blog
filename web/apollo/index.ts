@@ -1,17 +1,17 @@
-import { useMemo } from "react";
 import {
   ApolloClient,
-  InMemoryCache,
   createHttpLink,
-  gql,
+  InMemoryCache,
   NormalizedCacheObject,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import { ACCESS_TOKEN_KEY } from "../constants";
-import jwtDecode from "jwt-decode";
-import Router from "next/router";
 import merge from "deepmerge";
+import jwtDecode from "jwt-decode";
 import isEqual from "lodash/isEqual";
+import Router from "next/router";
+import { useMemo } from "react";
+import { ACCESS_TOKEN_KEY } from "../constants";
+import { RefreshTokenDocument } from "../generated/graphql";
 
 const NON_AUTH_OPERATION_MAP: Record<string, boolean> = {
   Login: true,
@@ -31,13 +31,7 @@ const httpLink = createHttpLink({
 
 const refreshAuthToken = async () => {
   return apolloClient.mutate({
-    mutation: gql`
-      mutation RefreshToken {
-        refreshToken {
-          accessToken
-        }
-      }
-    `,
+    mutation: RefreshTokenDocument,
   });
 };
 
